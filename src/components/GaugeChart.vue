@@ -3,19 +3,19 @@
 <template>
   
    <div class="gauge__outer">
-    <div class="gauge__top-text">0.0</div>
-      <div class="gauge__top-text">50.00</div>
-      <div class="gauge__top-text">100.00</div>
+    <div class="gauge__top-text">0.0</div>  <!-- represent the start point of the gauge -->  
+      <div class="gauge__top-text">50.00</div> <!-- represent the middle point of the gauge --> 
+      <div class="gauge__top-text">100.00</div> <!-- represent the end point of the gauge --> 
     
     <div class="gauge__inner">
       
-      <div class="gauge__fill" :style="fillStyles"></div>
-      <div class="gauge__gradient"></div>
+      <div class="gauge__fill" :style="fillStyles"></div> <!-- the fiiling of the gauge -->
+      <div class="gauge__gradient"></div> <!-- the gradient of the gauge -->
       <div class="gauge__cover">
         <div class="gauge__dial">
-          <div class="gauge__needle" :style="{ transform: cssTransformRotateValue }"></div>
+          <div class="gauge__needle" :style="{ transform: cssTransformRotateValue }"></div> <!-- the needle of the gauge -->
         </div>
-        <div class="gauge__percentage">{{ percentage.toFixed(2) }}%</div>
+       <div class="gauge__percentage">{{ percentage.toFixed(2) }}%</div>  <!-- the precentage value of gauge -->
       </div>
    
     </div>
@@ -35,14 +35,16 @@ const props = defineProps({
 });
 
 
-const cssTransformRotateValue = computed(() => `rotate(${(props.percentage * 1.8) - 90}deg)`);
+const cssTransformRotateValue = computed(() => `rotate(${(props.percentage * 1.8) - 90}deg)`);   // calculate the rotation value for the gauge needle based on the percentage
 
-const cssTransformValue = computed(() => {
-  const percentageAsFraction = props.percentage / 100; // Convert percentage to a fraction (0 to 1)
-  const halfPercentage = percentageAsFraction / 2; // Get half of the percentage
-  return `${halfPercentage}turn`; // Return the value in CSS `turn` units
+const cssTransformValue = computed(() => {              
+  const percentageAsFraction = props.percentage / 100;   //Convert percentage to a 0 to 1
+  const halfPercentage = percentageAsFraction / 2;   // take a half of it
+  return `${halfPercentage}turn`;  
 });
 
+
+// calculate the rotation and background color for the gauge fill based on the percentage
 const fillStyles = computed(() => {
   const gradientColor = getGradientColor(props.percentage);
   return {
@@ -51,13 +53,7 @@ const fillStyles = computed(() => {
   };
 });
 
-// const fillStyles = computed(() => {
-//   return {
-//     background: `linear-gradient(to top, #E1CA46 0%, #75C952 ${props.percentage}%, #469ED5 ${props.percentage}%)`,
-//     transform: `rotate(${(props.percentage * 3.6) - 90}deg)`
-//   };
-// });
-
+//claculate the gradient colour based on the precentage
 function getGradientColor(percentage) {
   if (percentage <= 50) {
     const ratio = percentage / 50;
@@ -137,7 +133,7 @@ function getGradientColor(percentage) {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: linear-gradient(to top, #E1CA46 0%,  #75C952 50%, #469ED5 100%);
+  background-image: linear-gradient(to top, #E1CA46 0%,  #75C952 50%, #469ED5 100%);  
   opacity: 0.8; 
 }
 
@@ -168,20 +164,20 @@ function getGradientColor(percentage) {
   font-size: 16px; 
 }
 
-.gauge__top-text:nth-child(1) {
+.gauge__top-text:nth-child(1) {  /* represent the style of start point of the gauge */
   bottom: -15%;
   right: 100%;
   transform: translateX(-50%) translateY(-50%);
 }
 
-.gauge__top-text:nth-child(2) {
+.gauge__top-text:nth-child(2) {  /* represent the style of middle point of the gauge */
   top: -8%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   
 }
 
-.gauge__top-text:nth-child(3) {
+.gauge__top-text:nth-child(3) { /* represent the style of end point of the gauge */
   bottom: -14%;
   left: 112%;
   transform: translateX(-50%) translateY(-50%);

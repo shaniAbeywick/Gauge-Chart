@@ -9,7 +9,7 @@
 
 <template>
     <div>
-      <GaugeChart :percentage="60.66" />
+      <GaugeChart :percentage="60.66" /> <!-- precentage value is passed to represent gauge value -->
     </div>
 </template>
 
